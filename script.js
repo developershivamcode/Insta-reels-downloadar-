@@ -1,28 +1,15 @@
-function downloadReel() {
-    const reelUrl = document.getElementById('reelUrl').value.trim();
-    
-    // Validate URL
-    const instaUrlPattern = /^https?:\/\/(www\.)?instagram\.com\/reel\/[A-Za-z0-9_-]+\/?$/;
-    if (!reelUrl) {
-        alert("Please enter the Instagram reel URL!");
-        return;
-    } else if (!instaUrlPattern.test(reelUrl)) {
-        alert("Please enter a valid Instagram reel URL!");
-        return;
-    }
-
-    // Change button text to indicate loading
-    const downloadButton = document.querySelector("button");
-    downloadButton.textContent = "Downloading...";
-    downloadButton.disabled = true;
-
-    // Replace this API link with your backend service if needed.
-    const apiUrl = `https://instagram-downloader-api.com/download?url=${reelUrl}`;
-    window.open(apiUrl, "_blank");
-
-    // Reset button text after download starts
-    setTimeout(() => {
-        downloadButton.textContent = "Download Reel";
-        downloadButton.disabled = false;
-    }, 2000);
+function validateInstagramURL(url) {
+    // Regular expression to match Instagram reel URLs
+    const regex = /^(https?:\/\/)?(www\.)?instagram\.com\/reel\/[a-zA-Z0-9_-]+\/?$/;
+    return regex.test(url);
 }
+
+document.getElementById("downloadButton").addEventListener("click", function () {
+    const userInput = document.getElementById("reelURL").value.trim();
+    if (validateInstagramURL(userInput)) {
+        alert("Valid URL! Proceeding to download...");
+        // यहाँ पर डाउनलोड फंक्शन कॉल करें
+    } else {
+        alert("Please enter a valid Instagram reel URL!");
+    }
+});
